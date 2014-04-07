@@ -177,48 +177,6 @@ void ofApp::draw(){
 	//ofSetColor(255);
 	//sphere2.draw();
 	cam.end();
-	/*//glEnable(GL_CULL_FACE);     // Cull back facing polygons
-	cam.begin();
-	ofEnableDepthTest();
-	//change origin to center
-	//ofTranslate(ofGetWidth()/2, ofGetHeight()/2, ofGetFrameNum());
-
-	//rotate sphere over time
-	ofRotateY(ofGetFrameNum());
-
-	//ofRotateX(-90); //north pole facing up
-
-	//bind and draw texture
-	earth_day.getTextureReference().bind();
-	//glEnable(GL_CULL_FACE);     // Cull back facing polygons
-	ofEnableDepthTest();
-	glCullFace(GL_BACK);
-	sphere.draw();
-	earth_day.getTextureReference().unbind();
-
-	ofSetColor(255);
-	glCullFace(GL_FRONT);
-	sphere2.draw();
-*/	/*// draw our normals, and show that they are perpendicular to the vector from the center to the vertex
-	vector<ofVec3f> n = sphere.getNormals();
-	vector<ofVec3f> v = sphere.getVertices();
-	float normalLength = 20.;
-
-	if(!ofGetKeyPressed()){
-		ofDisableLighting();
-		ofSetColor(255,255,255,220);
-		for(unsigned int i=0; i < n.size() ;i++){
-			//n[i] = n[i] * -1;
-			ofLine(v[i].x,v[i].y,v[i].z,
-				   v[i].x+n[i].x*normalLength,v[i].y+n[i].y*normalLength,v[i].z+n[i].z*normalLength);
-
-			ofLine(.98*v[i].x,.98*v[i].y,.98*v[i].z,
-				   .98*v[i].x+n[i].x*normalLength*.2,.98*v[i].y+n[i].y*normalLength*.2,.98*v[i].z+n[i].z*normalLength*.2);
-			ofLine(.98*v[i].x+n[i].x*normalLength*.2,.98*v[i].y+n[i].y*normalLength*.2,.98*v[i].z+n[i].z*normalLength*.2,
-				   v[i].x+n[i].x*normalLength*.2,v[i].y+n[i].y*normalLength*.2,v[i].z+n[i].z*normalLength*.2);
-		}
-	}*/
-	//cam.end();
 }
 
 //--------------------------------------------------------------
