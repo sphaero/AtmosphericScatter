@@ -8,7 +8,7 @@
 
 uniform vec3 v3CameraPos;       // The camera's current position
 uniform vec3 v3LightPos;        // The direction vector to the light source
-uniform vec3 m_fWavelength;     // 1 / pow(wavelength, 4) for the red, green, and blue channels
+uniform vec3 v3InvWavelength;   // 1 / pow(wavelength, 4) for the red, green, and blue channels
 uniform float fCameraHeight;    // The camera's current height
 uniform float fCameraHeight2;   // fCameraHeight^2
 uniform float fOuterRadius;     // The outer (atmosphere) radius
@@ -23,10 +23,9 @@ uniform float fScale;           // 1 / (fOuterRadius - fInnerRadius)
 uniform float fScaleDepth;      // The scale depth (i.e. the altitude at which the atmosphere's average density is found)
 uniform float fScaleOverScaleDepth; // fScale / fScaleDepth
 
-uniform int nSamples;
-uniform float fSamples;
+const int nSamples = 2;
+const float fSamples = 2.0;
 
-varying vec3 v3Direction, primary_color, secondary_color, test;
 
 float scale(float fCos)
 {
@@ -36,13 +35,6 @@ float scale(float fCos)
 
 void main(void)
 {
-
-    vec3 v3InvWavelength;
-    
-    v3InvWavelength.x = 1.0/pow(m_fWavelength.x, 4.0);
-    v3InvWavelength.y = 1.0/pow(m_fWavelength.y, 4.0);
-    v3InvWavelength.z = 1.0/pow(m_fWavelength.z, 4.0);
-
     // Get the ray from the camera to the vertex and its length (which is the far point of the ray passing through the atmosphere)
     vec3 v3Pos = gl_Vertex.xyz;
     vec3 v3Ray = v3Pos - v3CameraPos;
@@ -74,7 +66,7 @@ void main(void)
 
     // Now loop through the sample rays
     vec3 v3FrontColor = vec3(0.0, 0.0, 0.0);
-    vec3 v3Attenuate = vec3(0.0, 0.0, 0.0);
+    vec3 v3Attenuate;
     for(int i=0; i<nSamples; i++)
     {
         float fHeight = length(v3SamplePoint);
@@ -94,21 +86,3 @@ void main(void)
     gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
     gl_TexCoord[1] = gl_TextureMatrix[1] * gl_MultiTexCoord1;
 }
-/*
-// this is coming from our C++ code
-//uniform float mouseX;
-
-varying vec2 texCoordVarying;
-uniform sampler2D texture;
-uniform int textureSize;
-
-void main()
-{
-    vec2 texcoord = gl_MultiTexCoord0.xy;
-
-    // here we move the texture coordinates
-    texCoordVarying = texcoord; //vec2(texcoord.x*4096, texcoord.y*2048);
-
-    // send the vertices to the fragment shader
-    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;;
-}*/
